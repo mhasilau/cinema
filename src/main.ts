@@ -6,7 +6,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   const swaggerConfig = new DocumentBuilder()
-    .setTitle('Modsen cinema')
+    .setTitle('Cinema')
     .setDescription('API description')
     .setVersion('1.0.1')
     .build();

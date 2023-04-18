@@ -19,11 +19,22 @@ export class UserService {
   }
 
   findAll() {
-    return this.repository.find();
+    return this.repository.find({
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        password: false,
+        createdAt: true,
+        updatedAt: true,
+      },
+    });
   }
 
-  findOne(id: number) {
-    return this.repository.findOne({ where: { id } });
+  async findOne(id: number) {
+    const user = await this.repository.findOne({ where: { id } });
+    const { password, ...data } = user;
+    return data;
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {
