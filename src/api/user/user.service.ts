@@ -4,6 +4,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { UserEntity } from './entities/user.entity';
+import { LoginUserDto } from './dto/login-user.dto';
 
 @Injectable()
 export class UserService {
@@ -35,6 +36,15 @@ export class UserService {
     const user = await this.repository.findOne({ where: { id } });
     const { password, ...data } = user;
     return data;
+  }
+
+  findByCond(cond: LoginUserDto) {
+    return this.repository.findOne({
+      where: {
+        email: cond.email,
+        password: cond.password,
+      },
+    });
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {
